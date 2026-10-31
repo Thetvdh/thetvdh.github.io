@@ -1,0 +1,33 @@
+---
+layout: listing
+permalink: /tags/
+title: Tags
+eyebrow: "05 — Tags"
+---
+
+{%- assign tags = site.tags | sort -%}
+
+{%- if tags.size > 0 -%}
+  <div class="tag-cloud">
+    {%- for tag in tags -%}
+      <a class="tag" href="#{{ tag[0] | slugify }}">{{ tag[0] }} <span style="color: var(--ink-faint);">{{ tag[1] | size }}</span></a>
+    {%- endfor -%}
+  </div>
+
+  {%- for tag in tags -%}
+    <section class="tag-group" id="{{ tag[0] | slugify }}">
+      <div class="tag-group__head">
+        <h2 class="tag-group__name">{{ tag[0] }}</h2>
+        <span class="label">{{ tag[1] | size }} post{% if tag[1].size != 1 %}s{% endif %}</span>
+      </div>
+      <ul class="tag-group__list">
+        {%- for post in tag[1] -%}
+          <li>
+            <span class="mono" style="color: var(--ink-faint);">{{ post.date | date: "%Y.%m.%d" }}</span>
+            &nbsp;<a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </section>
+  {%- endfor -%}
+{%- endif -%}

@@ -1,0 +1,9 @@
+---
+layout: listing
+permalink: /notes/
+title: Notes
+eyebrow: "03 — Notes"
+---
+
+{%- assign notes = site.notes | sort: "date" | reverse -%}
+{% include index-list.html items=notes %}

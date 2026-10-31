@@ -1,0 +1,13 @@
+# Each entry renders one row on /projects/.
+#   name, description  - required
+#   url, demo, writeup - optional links (writeup is a path on this site)
+#   stack              - list of tags
+#   status             - "active" is highlighted; anything else prints as-is
+#   year               - printed under the status
+#
+# - name:
+#   description:
+#   url:
+#   stack: []
+#   status: active
+#   year: 2026

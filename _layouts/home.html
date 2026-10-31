@@ -1,0 +1,35 @@
+---
+layout: base
+---
+<div class="shell">
+  {%- assign intro = content | strip_html | strip -%}
+  {%- if intro != "" -%}
+  <section class="intro">
+    <p class="label">{{ page.eyebrow | default: "00 — Index" }}</p>
+    <div class="intro__body">
+      {{ content }}
+    </div>
+  </section>
+  {%- endif -%}
+
+  <section aria-labelledby="recent-writeups">
+    <div class="section-head">
+      <h2 id="recent-writeups" class="label">01 — Recent writeups</h2>
+      <a class="section-head__more" href="{{ '/writeups/' | relative_url }}">All {{ site.posts | size }} &rarr;</a>
+    </div>
+    {%- assign recent = site.posts | slice: 0, 5 -%}
+    {% include index-list.html items=recent start=site.posts.size %}
+  </section>
+
+  {%- if site.notes.size > 0 -%}
+  <section aria-labelledby="recent-notes">
+    <div class="section-head">
+      <h2 id="recent-notes" class="label">02 — Recent notes</h2>
+      <a class="section-head__more" href="{{ '/notes/' | relative_url }}">All {{ site.notes | size }} &rarr;</a>
+    </div>
+    {%- assign notes = site.notes | sort: "date" | reverse -%}
+    {%- assign recent_notes = notes | slice: 0, 4 -%}
+    {% include index-list.html items=recent_notes start=site.notes.size %}
+  </section>
+  {%- endif -%}
+</div>

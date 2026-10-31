@@ -1,0 +1,64 @@
+// ---------------------------------------------------------------------------
+// Design tokens
+//
+// Two palettes: paper (default) and the dark inversion. Both are exposed as
+// custom properties so the theme toggle only has to flip one attribute on
+// <html>, and so a reader with no JS still gets their OS preference.
+// ---------------------------------------------------------------------------
+
+:root {
+  --paper:        #f6f5f1;
+  --paper-panel:  #efeee7;
+  --paper-inset:  #e9e8df;
+  --ink:          #141416;
+  --ink-muted:    #6c6c66;
+  --ink-faint:    #9b9a92;
+  --rule:         #d6d5cb;
+  --rule-strong:  #141416;
+  --accent:       #c4271d;
+  --accent-soft:  rgba(196, 39, 29, 0.09);
+
+  --font-sans: "Helvetica Neue", Helvetica, "Segoe UI", Arial, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Consolas, "Liberation Mono", monospace;
+
+  // Horizontal rhythm. --shell is the outer measure, --rail the label gutter
+  // that carries index numbers and section labels on wide screens.
+  --shell: 68rem;
+  --rail: 7rem;
+  --gap: 2rem;
+  --pad: clamp(1.25rem, 4vw, 3rem);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:       #0e0e10;
+    --paper-panel: #161619;
+    --paper-inset: #1c1c20;
+    --ink:         #e9e8e2;
+    --ink-muted:   #8e8d87;
+    --ink-faint:   #66655f;
+    --rule:        #2a2a2f;
+    --rule-strong: #e9e8e2;
+    --accent:      #ff5f4e;
+    --accent-soft: rgba(255, 95, 78, 0.13);
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper:       #0e0e10;
+  --paper-panel: #161619;
+  --paper-inset: #1c1c20;
+  --ink:         #e9e8e2;
+  --ink-muted:   #8e8d87;
+  --ink-faint:   #66655f;
+  --rule:        #2a2a2f;
+  --rule-strong: #e9e8e2;
+  --accent:      #ff5f4e;
+  --accent-soft: rgba(255, 95, 78, 0.13);
+
+  color-scheme: dark;
+}

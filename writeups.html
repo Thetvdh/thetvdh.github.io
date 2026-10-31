@@ -1,0 +1,20 @@
+---
+layout: listing
+permalink: /writeups/
+title: Writeups
+eyebrow: "02 — Writeups"
+---
+
+{%- if site.posts.size > 0 -%}
+  {%- assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" -%}
+  {%- assign running = site.posts.size -%}
+  {%- for year in years -%}
+    <section class="year">
+      <h2 class="year__label">{{ year.name }} <span style="color: var(--ink-faint);">/ {{ year.items | size }}</span></h2>
+      <div>
+        {% include index-list.html items=year.items start=running %}
+      </div>
+    </section>
+    {%- assign running = running | minus: year.items.size -%}
+  {%- endfor -%}
+{%- endif -%}

@@ -1,0 +1,296 @@
+// ---------------------------------------------------------------------------
+// Article header (spec-sheet metadata) and long-form body copy
+// ---------------------------------------------------------------------------
+
+.article {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  column-gap: var(--gap);
+}
+
+.article__rail {
+  grid-column: 1;
+}
+
+.article__body {
+  grid-column: 2;
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .article {
+    grid-template-columns: 1fr;
+  }
+
+  .article__rail,
+  .article__body {
+    grid-column: 1;
+  }
+}
+
+.article__head {
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--rule-strong);
+}
+
+.article__title {
+  font-size: clamp(2rem, 5.5vw, 3rem);
+  letter-spacing: -0.035em;
+  margin-bottom: 0.9rem;
+}
+
+.article__lede {
+  margin: 0 0 1.25rem;
+  font-size: 1.125rem;
+  color: var(--ink-muted);
+  max-width: 50ch;
+}
+
+// Key/value metadata block. Reads like the header of a lab report.
+.specs {
+  margin: 1.4rem 0 0;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.specs__key {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 0.5rem 0 0;
+  margin: 0;
+  grid-column: 1;
+  border-top: 1px solid var(--rule);
+}
+
+.specs__key:first-of-type,
+.specs__val:first-of-type {
+  border-top: 0;
+}
+
+.specs__val {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  padding: 0.44rem 0 0.5rem;
+  margin: 0;
+  grid-column: 2;
+  border-top: 1px solid var(--rule);
+}
+
+.specs__val a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+}
+
+// ---------------------------------------------------------------------------
+// Prose
+// ---------------------------------------------------------------------------
+
+.prose {
+  max-width: 68ch;
+  font-size: 1.0625rem;
+  line-height: 1.68;
+  counter-reset: section;
+}
+
+// Writeups use h1 for sections and h2 for subsections, so h1 carries the
+// section number and everything below steps down from it.
+.prose > h1 {
+  counter-increment: section;
+  font-size: 1.5rem;
+  margin: 2.75rem 0 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  align-items: baseline;
+}
+
+// The number sits in its own column so wrapped headings stay aligned.
+.prose > h1::before {
+  content: counter(section, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.prose > h1:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.prose > h2 {
+  font-size: 1.25rem;
+  margin: 2.25rem 0 0.7rem;
+}
+
+.prose > h3 {
+  font-size: 1.0625rem;
+  margin: 1.8rem 0 0.6rem;
+}
+
+.prose > h4,
+.prose > h5,
+.prose > h6 {
+  font-size: 1rem;
+  margin: 1.5rem 0 0.5rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.prose a {
+  text-decoration: underline;
+}
+
+.prose strong {
+  font-weight: 700;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.3rem;
+}
+
+.prose li {
+  margin-bottom: 0.4rem;
+}
+
+.prose li::marker {
+  color: var(--accent);
+  font-size: 0.9em;
+}
+
+.prose blockquote {
+  margin: 1.75rem 0;
+  padding: 0.2rem 0 0.2rem 1.25rem;
+  border-left: 2px solid var(--accent);
+  color: var(--ink-muted);
+}
+
+.prose img {
+  margin: 1.75rem 0;
+  border: 1px solid var(--rule);
+  background: var(--paper-panel);
+}
+
+.prose figcaption,
+.prose img + em {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+// Tables: hairlines only, mono for data density.
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  display: block;
+  overflow-x: auto;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 0.5rem 1rem 0.5rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.prose th {
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  color: var(--ink-faint);
+  border-bottom-color: var(--rule-strong);
+}
+
+// Inline code keeps the body rhythm; blocks get the inset panel.
+.prose :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--paper-inset);
+  border: 1px solid var(--rule);
+  padding: 0.06em 0.3em;
+  overflow-wrap: break-word;
+}
+
+.prose pre {
+  background: var(--paper-panel);
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--accent);
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.62;
+  margin: 1.5rem 0;
+}
+
+.prose pre code {
+  font-family: var(--font-mono);
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+// ---------------------------------------------------------------------------
+// Post footer navigation
+// ---------------------------------------------------------------------------
+
+.postnav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  margin-top: 3.5rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--rule-strong);
+}
+
+.postnav__item {
+  text-decoration: none;
+  display: block;
+}
+
+.postnav__item--next {
+  text-align: right;
+}
+
+.postnav__dir {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.3rem;
+}
+
+.postnav__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.postnav__item:hover .postnav__title {
+  color: var(--accent);
+}
+
+@media (max-width: 680px) {
+  .postnav {
+    grid-template-columns: 1fr;
+  }
+
+  .postnav__item--next {
+    text-align: left;
+  }
+}

@@ -1,0 +1,18 @@
+{%- comment -%}
+  Numbered index for a list of documents.
+    items — array of posts or notes
+    start — number the first row counts down from (defaults to the list size,
+            so the newest item carries the highest number)
+  An empty list renders nothing.
+{%- endcomment -%}
+{%- assign docs = include.items -%}
+{%- if docs.size > 0 -%}
+  <div class="index">
+    {%- assign total = include.start | default: docs.size | plus: 0 -%}
+    {%- for item in docs -%}
+      {%- assign n = total | minus: forloop.index0 -%}
+      {%- assign padded = n | prepend: "00" | slice: -3, 3 -%}
+      {% include index-row.html item=item num=padded %}
+    {%- endfor -%}
+  </div>
+{%- endif -%}

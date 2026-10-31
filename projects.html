@@ -1,0 +1,41 @@
+---
+layout: listing
+permalink: /projects/
+title: Projects
+eyebrow: "04 — Projects"
+---
+
+{%- if site.data.projects.size > 0 -%}
+  {%- for project in site.data.projects -%}
+    <article class="project">
+      <p class="index__num" aria-hidden="true">{{ forloop.index | prepend: "00" | slice: -3, 3 }}</p>
+
+      <div>
+        <h2 class="project__name">
+          {%- if project.url -%}
+            <a href="{{ project.url }}">{{ project.name }}</a>
+          {%- else -%}
+            {{ project.name }}
+          {%- endif -%}
+        </h2>
+        <p class="project__desc">{{ project.description }}</p>
+
+        {%- if project.stack -%}
+          <ul class="taglist" style="margin-bottom: 0.7rem;">
+            {%- for item in project.stack -%}<li class="tag">{{ item }}</li>{%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        <div class="project__links">
+          {%- if project.url %}<a href="{{ project.url }}">Source &rarr;</a>{% endif -%}
+          {%- if project.demo %}<a href="{{ project.demo }}">Live &rarr;</a>{% endif -%}
+          {%- if project.writeup %}<a href="{{ project.writeup | relative_url }}">Writeup &rarr;</a>{% endif -%}
+        </div>
+      </div>
+
+      <p class="project__status{% if project.status == 'active' %} project__status--active{% endif %}">
+        {{ project.status | default: "archived" }}{% if project.year %}<br>{{ project.year }}{% endif %}
+      </p>
+    </article>
+  {%- endfor -%}
+{%- endif -%}

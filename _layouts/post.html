@@ -1,0 +1,78 @@
+---
+layout: base
+---
+<div class="shell">
+  <article class="article" itemscope itemtype="https://schema.org/BlogPosting">
+    <div class="article__rail" aria-hidden="true">
+      <p class="label">{{ page.eyebrow | default: "Writeup" }}</p>
+    </div>
+
+    <div class="article__body">
+      <header class="article__head">
+        <h1 class="article__title" itemprop="headline">{{ page.title }}</h1>
+        {%- if page.summary %}<p class="article__lede" itemprop="description">{{ page.summary }}</p>{% endif -%}
+
+        <dl class="specs">
+          <dt class="specs__key">Published</dt>
+          <dd class="specs__val">
+            <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+              {{ page.date | date: "%d %B %Y" }}
+            </time>
+          </dd>
+
+          <dt class="specs__key">Read</dt>
+          {%- assign words = content | number_of_words -%}
+          <dd class="specs__val">{{ words | divided_by: 200 | plus: 1 }} min · {{ words }} words</dd>
+
+          {%- if page.author %}
+          <dt class="specs__key">Author</dt>
+          <dd class="specs__val" itemprop="author">{{ page.author }}</dd>
+          {%- endif -%}
+
+          {%- if page.source %}
+          <dt class="specs__key">Source</dt>
+          <dd class="specs__val"><a href="{{ page.source }}">{{ page.source }}</a></dd>
+          {%- endif -%}
+
+          {%- for field in page.meta %}
+          <dt class="specs__key">{{ field[0] }}</dt>
+          <dd class="specs__val">{{ field[1] }}</dd>
+          {%- endfor -%}
+
+          {%- if page.tags.size > 0 %}
+          <dt class="specs__key">Tags</dt>
+          <dd class="specs__val">
+            <span class="taglist">
+              {%- for tag in page.tags -%}
+                <a class="tag" href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}">{{ tag }}</a>
+              {%- endfor -%}
+            </span>
+          </dd>
+          {%- endif -%}
+        </dl>
+      </header>
+
+      <div class="prose" itemprop="articleBody">
+        {{ content }}
+      </div>
+
+      {%- if page.previous or page.next %}
+      <nav class="postnav" aria-label="More writeups">
+        {%- if page.previous -%}
+          <a class="postnav__item postnav__item--prev" href="{{ page.previous.url | relative_url }}">
+            <span class="postnav__dir">&larr; Older</span>
+            <span class="postnav__title">{{ page.previous.title }}</span>
+          </a>
+        {%- else -%}<span></span>{%- endif -%}
+
+        {%- if page.next -%}
+          <a class="postnav__item postnav__item--next" href="{{ page.next.url | relative_url }}">
+            <span class="postnav__dir">Newer &rarr;</span>
+            <span class="postnav__title">{{ page.next.title }}</span>
+          </a>
+        {%- endif -%}
+      </nav>
+      {%- endif -%}
+    </div>
+  </article>
+</div>

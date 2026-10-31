@@ -1,0 +1,30 @@
+{%- comment -%}
+  One row of a numbered index.
+    item — a post or note document
+    num  — display number, already padded by the caller
+  The preview is the opening of the document itself; nothing is hand-written.
+{%- endcomment -%}
+<a class="index__row" href="{{ include.item.url | relative_url }}">
+  <span class="index__num" aria-hidden="true">{{ include.num }}</span>
+
+  <span class="index__body">
+    <span class="index__title">{{ include.item.title }}</span>
+    {%- assign preview = include.item.content | strip_html | normalize_whitespace | strip | truncate: 180 -%}
+    {%- if preview != "" -%}
+      <span class="index__summary">{{ preview }}</span>
+    {%- endif -%}
+  </span>
+
+  <span class="index__meta">
+    {%- if include.item.tags.size > 0 -%}
+      <span class="taglist" aria-hidden="true">
+        {%- for tag in include.item.tags limit: 3 -%}
+          <span class="tag">{{ tag }}</span>
+        {%- endfor -%}
+      </span>
+    {%- endif -%}
+    <span class="index__date">
+      <time datetime="{{ include.item.date | date_to_xmlschema }}">{{ include.item.date | date: "%Y.%m.%d" }}</time>
+    </span>
+  </span>
+</a>

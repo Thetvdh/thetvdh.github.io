@@ -1,5 +1,26 @@
-_site
-.sass-cache
-.jekyll-cache
+# Jekyll build output and caches
+_site/
+.jekyll-cache/
 .jekyll-metadata
-vendor
+.sass-cache/
+
+# Bundler
+vendor/
+.bundle/
+
+# Node, if npx/npm is ever run in here
+node_modules/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+
+README.md
